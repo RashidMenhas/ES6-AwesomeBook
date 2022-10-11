@@ -12,7 +12,7 @@ class Book {
     this.id = Math.random();
   }
 
-  static timeStamp() {
+  static timeStamp =() => {
     const date = new Date();
     return date.getMinutes();
   }
@@ -20,14 +20,14 @@ class Book {
 
 const books = new Books();
 
-function getInput() {
+const getInput = () => {
   const title = document.getElementById('title');
   const author = document.getElementById('author');
   const book = new Book(title.value, author.value);
   title.value = '';
   author.value = '';
   return book;
-}
+};
 
 const addButton = document.getElementById('btn-add');
 addButton.addEventListener('click', () => {

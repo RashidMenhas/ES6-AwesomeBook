@@ -10,8 +10,8 @@ awesomeBooks.innerHTML = '';
 
 document.getElementById('date').innerText = luxon.DateTime.now().setLocale('en-US').toLocaleString(luxon.DateTime.DATETIME_FULL_WITH_SECONDS);
 
-function addToList(bookObj, index) {
-  function timeStamp() {
+const addToList = (bookObj, index) => {
+  const timeStamp = () => {
     let time = '';
     if (Book.timeStamp() - bookObj.date < 1) {
       time = 'Just now';
@@ -19,7 +19,7 @@ function addToList(bookObj, index) {
       time = `${Book.timeStamp() - bookObj.date} minutes ago`;
     }
     return time;
-  }
+  };
   const container = document.createElement('div');
   container.className = 'container';
   container.setAttribute('id', bookObj.id);
@@ -59,6 +59,6 @@ function addToList(bookObj, index) {
   awesomeBooks.appendChild(container);
   const section = document.body.querySelector('#awesome-books');
   section.appendChild(awesomeBooks);
-}
+};
 
 export default addToList;

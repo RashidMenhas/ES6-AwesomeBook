@@ -7,13 +7,13 @@ class Books {
     this.data = [];
   }
 
-  addBook(book) {
+  addBook=(book) => {
     this.data.push(book);
     localStorage.setItem('BOOKS', JSON.stringify(this.data));
     addToList(book);
   }
 
-  removeBook(id) {
+  removeBook=(id) => {
     const book = document.getElementById(id);
     this.data = localStorage.getItem('BOOKS');
     this.data = JSON.parse(this.data);
