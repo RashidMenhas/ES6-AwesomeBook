@@ -1,6 +1,3 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable no-use-before-define */
-/* eslint-disable import/no-cycle */
 import addToList from './modules/add.js';
 import Books from './modules/books.js';
 
@@ -8,13 +5,7 @@ class Book {
   constructor(title, author) {
     this.title = title;
     this.author = author;
-    this.date = Book.timeStamp();
     this.id = Math.random();
-  }
-
-  static timeStamp =() => {
-    const date = new Date();
-    return date.getMinutes();
   }
 }
 
@@ -34,6 +25,7 @@ addButton.addEventListener('click', () => {
   const book = getInput();
   if ((book.author !== '') && (book.title !== '')) {
     books.addBook(book);
+    window.location.reload();
   }
 });
 

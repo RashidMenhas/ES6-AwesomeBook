@@ -1,25 +1,23 @@
-/* eslint-disable import/no-cycle */
-import Book from '../index.js';
-import Books from './books.js';
 import luxon from './luxon.js';
 
-const books = new Books();
-
+let data = [];
 const awesomeBooks = document.createElement('div');
 awesomeBooks.innerHTML = '';
 
 document.getElementById('date').innerText = luxon.DateTime.now().setLocale('en-US').toLocaleString(luxon.DateTime.DATETIME_FULL_WITH_SECONDS);
 
 const addToList = (bookObj, index) => {
+  const minutes = new Date().getMinutes();
   const timeStamp = () => {
     let time = '';
-    if (Book.timeStamp() - bookObj.date < 1) {
+    if (minutes - bookObj.date < 1) {
       time = 'Just now';
     } else {
-      time = `${Book.timeStamp() - bookObj.date} minutes ago`;
+      time = `${bookObj.date} minutes ago`;
     }
     return time;
   };
+  timeStamp();
   const container = document.createElement('div');
   container.className = 'container';
   container.setAttribute('id', bookObj.id);
@@ -43,17 +41,20 @@ const addToList = (bookObj, index) => {
   authName.innerText = bookObj.author;
   wrapper.appendChild(authName);
 
-  const duration = document.createElement('div');
-  duration.style.textAlign = 'center';
-  duration.innerText = timeStamp();
-  wrapper.appendChild(duration);
-
   const buttonDelete = document.createElement('button');
   buttonDelete.innerText = 'Remove';
   container.appendChild(buttonDelete);
 
   buttonDelete.addEventListener('click', () => {
-    books.removeBook(bookObj.id);
+    const { id } = bookObj;
+    const book = document.getElementById(id);
+    data = localStorage.getItem('BOOKS');
+    data = JSON.parse(data);
+    book.remove();
+    data = data.filter((bookObj) => bookObj.id !== id);
+    localStorage.setItem('BOOKS', JSON.stringify(data));
+    window.location.reload();
+    return false;
   });
 
   awesomeBooks.appendChild(container);
